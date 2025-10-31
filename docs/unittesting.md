@@ -24,13 +24,7 @@ After specifying the test folder, click the "**Create**" button.
 
 ## Generating Tests
 
-The plugin can generate generic test files that contain information about
-
-Select the Solidity file which you want to test and click on the `Generate` button. In the `tests` directory, a test file will be created for your selected file.
-
-If no file is selected, a generic test file named, `newFile_test.sol` will be created.
-
-This file contains information about developing tests for a contract.
+The plugin can generate generic test files that contain information about developing tests for a contract. The name of the generic test file is determined by the currently active `.sol` file on the Main Panel. If there is no active file, a generic test file named, `newFile_test.sol` will be created.
 
 Below is an example of a generic test file:
 
@@ -93,6 +87,11 @@ Additionally, Remix allows the usage of special functions in the test file to ma
 
 To get started, see {ref}`this simple example <unittesting_examples:1. Simple example>`.
 
+```{tip}
+You can use {doc}`RemixAI </ai>` to generate tests for your files.
+
+```
+
 ## Running Tests
 
 Once you are done with writing tests, select the file(s) and click on `Run` to execute the tests. The execution will run in a separate environment. After completing the execution of one file, a test summary will be shown:
@@ -117,7 +116,7 @@ Remix facilitates users with various types of customizations to test a contract 
 
 ### 2. Custom Transaction Context
 
-For interacting with a contract's method, the prime parameters of a transaction are `from` address, `value` & `gas`. Typically, a method's behaviour is tested with different values of these parameters.
+For interacting with a contract's method, the main parameters of a transaction are `from` address, `value` & `gas`. Typically, a method's behaviour is tested with different values of these parameters.
 
 One can input custom values for `msg.sender` & `msg.value` of transaction using NatSpec comments, like:
 
