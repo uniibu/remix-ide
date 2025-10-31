@@ -24,6 +24,8 @@ After specifying the test folder, click the "**Create**" button.
 
 ## Generating Tests
 
+The plugin can generate generic test files that contain information about
+
 Select the Solidity file which you want to test and click on the `Generate` button. In the `tests` directory, a test file will be created for your selected file.
 
 If no file is selected, a generic test file named, `newFile_test.sol` will be created.
