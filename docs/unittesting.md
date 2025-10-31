@@ -1,32 +1,26 @@
 # Unit Testing Plugin
 
-Click the
-![](images/a-user-testing-icon.png) (double check)
-icon from icon bar to move to the `Solidity Unit Testing` plugin.
+The Solidity Unit Testing plugin allows you to write and run automated tests for your Solidity smart contracts to verify they work correctly before deployment.
 
-If you haven't used this plugin before and are not seeing the `double check` icon, you have to activate it from Remix plugin manager.
+It helps you generate test files, write test functions using a built-in assertion library (like `Assert.equal`, `Assert.notEqual`), and execute those tests in a separate environment to see pass/fail results.
 
-Go to the plugin manager by clicking the ![](images/a-plug.png) (plug) icon and activate `Solidity Unit Testing` plugin.
+## Enabling the Unit Testing Plugin
 
-![](images/a-unit-testing-from-pm.png)
+To enable the plugin, go to the Plugin Manager, search "Unit Testing" and enable the "Solidity Unit Testing" plugin.
 
-Now the `double check` icon will appear on the left side icon bar. Clicking on the icon will load the plugin in the Side Panel.
+![Enable Solidity Unit Testing plugin](images/unit-testing/activate-test-plugin.gif)
 
-<i>Alternatively, select `Solidity` environment from Remix IDE `Home` tab. This will activate `Solidity Unit Testing` plugin along with `Solidity Compiler`, `Deploy & Run Transactions` & `Solidity Static Analysis` plugins.</i>
+After the plugin has loaded successfully, it will look like the image below:
 
-After successful loading, plugin looks like this:
-
-![](images/a-unit-testing-feature.png)
+![Unit testing page](images/a-unit-testing-feature.png)
 
 ## Test directory
 
-Plugin asks you to provide a directory which will be your unit testing workspace (not to be confused with a Workspace in the File Explorer). To select directory, as soon as you add `/` to the path, it shows the possible options. [Rob Edit]
+When you load the plugin, you need to specify a directory where the plugin will load and store test files. By default, it's a `tests` folder at the root of your Workspace (not created automatically, you still have to click the "**Create**").
 
-![](images/a-unit-testing-test-directory.png)
+After specifying the test folder, click the "**Create**" button.
 
-Once selected, this directory will be used to load test files and to store newly generated test files.
-
-Default test directory is `browser/tests`.
+![Test Directory](images/unit-testing/a-unit-testing-test-directory.png)
 
 ## Generate
 
@@ -113,13 +107,13 @@ If you have selected multiple files to run the tests and want to stop the execut
 
 Remix facilitates users with various types of customizations to test a contract properly.
 
-**1. Custom Compiler Context**
+### 1. Custom Compiler Context
 
 `Solidity Unit Testing` refers to the `Solidity Compiler` plugin for compiler configurations. Configure `Compiler`, `EVM Version`, `Enable Optimization` & `runs` in the `Solidity Compiler` plugin and this will be used in the `Solidity Unit Testing` plugin for contract compilation before running unit tests.
 
 ![](images/a-unit-testing-custom-compiler-config.png)
 
-**2. Custom Transaction Context**
+### 2. Custom Transaction Context
 
 For interacting with a contract's method, the prime parameters of a transaction are `from` address, `value` & `gas`. Typically, a method's behaviour is tested with different values of these parameters.
 
@@ -134,7 +128,7 @@ function checkSenderIs0AndValueis10 () public payable {
 }
 ```
 
-<b>Instructions to use:</b>
+Instructions to use:
 
 1. Parameters must be defined in the method's NatSpec
 2. Each parameter key should be prefixed with a hash (**#**) and end with a colon following a space (**:&nbsp;**) like `#sender: ` & `#value: `
