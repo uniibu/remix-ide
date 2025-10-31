@@ -1,30 +1,30 @@
-# Unit Testing Plugin
+# Solidity Unit Testing Plugin
 
 The Solidity Unit Testing plugin allows you to write and run automated tests for your Solidity smart contracts to verify they work correctly before deployment.
 
 It helps you generate test files, write test functions using a built-in assertion library (like `Assert.equal`, `Assert.notEqual`), and execute those tests in a separate environment to see pass/fail results.
 
-## Enabling the Unit Testing Plugin
+## Enabling the Solidity Unit Testing Plugin
 
 To enable the plugin, go to the Plugin Manager, search "Unit Testing" and enable the "Solidity Unit Testing" plugin.
 
 ![Enable Solidity Unit Testing plugin](images/unit-testing/activate-test-plugin.gif)
 
-After the plugin has loaded successfully, it will look like the image below:
+When the plugin loads, you’ll see a screen like this:
 
-![Unit testing page](images/a-unit-testing-feature.png)
+![Unit testing page](images/unit-testing/a-unit-testing-feature.png)
 
 ## Test directory
 
-When you load the plugin, you need to specify a directory where the plugin will load and store test files. By default, it's a `tests` folder at the root of your Workspace (not created automatically, you still have to click the "**Create**").
+When you load the plugin, you need to specify a directory where the plugin will load and store test files. By default, it's a `tests` folder at the root of your Workspace (Remix won’t create the folder for you; you must click "**Create**").
 
 After specifying the test folder, click the "**Create**" button.
 
 ![Test Directory](images/unit-testing/a-unit-testing-test-directory.png)
 
-## Generate
+## Generating Tests
 
-Select the Solidity file which you want to test and click on the `Generate` button. In the `test` directory, a test file will be created for your selected file.
+Select the Solidity file which you want to test and click on the `Generate` button. In the `tests` directory, a test file will be created for your selected file.
 
 If no file is selected, a generic test file named, `newFile_test.sol` will be created.
 
@@ -76,7 +76,7 @@ contract testSuite {
 }
 ```
 
-## Write Tests
+## Writing Tests
 
 Write sufficient unit tests to ensure that your contract works as expected under different scenarios.
 
@@ -91,19 +91,19 @@ Additionally, Remix allows the usage of special functions in the test file to ma
 
 To get started, see {ref}`this simple example <unittesting_examples:1. Simple example>`.
 
-## Run
+## Running Tests
 
 Once you are done with writing tests, select the file(s) and click on `Run` to execute the tests. The execution will run in a separate environment. After completing the execution of one file, a test summary will be shown:
 
-![](images/a-unit-testing-run-result.png)
+![](images/unit-testing/a-unit-testing-run-result.png)
 
 For failed tests, there will be more assertion details to analyze the issue. Clicking on failed test will highlight the relevant line of code in the editor.
 
-## Stop
+## Stopping Tests
 
 If you have selected multiple files to run the tests and want to stop the execution, click on `Stop` button. It will stop execution after running the tests for current file.
 
-## Customization
+## Customizing Tests
 
 Remix facilitates users with various types of customizations to test a contract properly.
 
@@ -111,7 +111,7 @@ Remix facilitates users with various types of customizations to test a contract 
 
 `Solidity Unit Testing` refers to the `Solidity Compiler` plugin for compiler configurations. Configure `Compiler`, `EVM Version`, `Enable Optimization` & `runs` in the `Solidity Compiler` plugin and this will be used in the `Solidity Unit Testing` plugin for contract compilation before running unit tests.
 
-![](images/a-unit-testing-custom-compiler-config.png)
+![](images/unit-testing/a-unit-testing-custom-compiler-config.png)
 
 ### 2. Custom Transaction Context
 
