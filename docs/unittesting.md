@@ -16,7 +16,12 @@ When the plugin loads, you’ll see a screen like this:
 
 ## Test directory
 
-When you load the plugin, you need to specify a directory where the plugin will load and store test files. By default, it's a `tests` folder at the root of your Workspace (Remix won’t create the folder for you; you must click "**Create**").
+When you load the plugin, you need to specify a directory where the plugin will load and store test files. By default, it's a `tests` folder at the root of your Workspace.
+
+```{note}
+The plugin will not automatically create directories. You must click "Create" to generate the specified folder structure.
+
+```
 
 After specifying the test folder, click the "**Create**" button.
 
@@ -143,7 +148,7 @@ Regarding `gas`, Remix estimates the required gas for each transaction internall
 
 Various test examples can be seen in [examples](https://remix-ide.readthedocs.io/en/latest/unittesting_examples.html) section.
 
-## Points to remember
+## Points to Remember
 
 - A test contract cannot have a method with parameters. Having one such method will show error: `Method 'methodname' can not have parameters inside a test contract`
 - Number of test accounts are `3` before remix-ide release v0.10.0 and `10` afterwards
