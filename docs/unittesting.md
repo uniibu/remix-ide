@@ -4,11 +4,11 @@ The Solidity Unit Testing plugin allows you to write and run automated tests for
 
 It helps you generate test files, write test functions using a built-in assertion library (like `Assert.equal`, `Assert.notEqual`), and execute those tests in a separate environment to see pass/fail results.
 
-## Enabling the Solidity Unit Testing Plugin
+## Activating the Solidity Unit Testing Plugin
 
-To enable the plugin, go to the Plugin Manager, search "Unit Testing" and enable the "Solidity Unit Testing" plugin.
+To activate the plugin, go to the Plugin Manager, search "Unit Testing" and enable the "Solidity Unit Testing" plugin.
 
-![Enable Solidity Unit Testing plugin](images/unit-testing/activate-test-plugin.gif)
+<!-- ![Enable Solidity Unit Testing plugin](images/unit-testing/activate-test-plugin.gif) -->
 
 When the plugin loads, you’ll see a screen like this:
 
@@ -16,20 +16,20 @@ When the plugin loads, you’ll see a screen like this:
 
 ## Test directory
 
-When you load the plugin, you need to specify a directory where the plugin will load and store test files. By default, it's a `tests` folder at the root of your Workspace.
+When you load the plugin, you need to specify a directory where the plugin will load and store test files. By default, it's a **tests** folder at the root of your Workspace.
 
 ```{note}
 The plugin will not automatically create directories. You must click "Create" to generate the specified folder structure.
 
 ```
 
-After specifying the test folder, click the "**Create**" button.
+After specifying the test folder, click the "**Create**" button. Alternatively, you can select an existing folder as the **tests** folder by typing "/" followed by the name of the folder.
 
 ![Test Directory](images/unit-testing/a-unit-testing-test-directory.png)
 
 ## Generating Tests
 
-The plugin can generate generic test files that contain information about developing tests for a contract. The name of the generic test file is determined by the currently active `.sol` file on the Main Panel. If there is no active file, a generic test file named, `newFile_test.sol` will be created.
+The plugin can generate generic test files that contain information about developing tests for a contract. The name of the generic test file is determined by the currently active `.sol` file on the Main Panel. If there is no active file, a generic test file named, **newFile_test.sol** will be created.
 
 Below is an example of a generic test file:
 
@@ -81,7 +81,7 @@ contract testSuite {
 
 Write sufficient unit tests to ensure that your contract works as expected under different scenarios.
 
-Remix injects a built-in `assert` library for testing. You can visit the library documentation {doc}`here </assert_library>`.
+Remix injects a built-in **assert** library for testing. You can visit the library documentation {doc}`here </assert_library>`.
 
 Additionally, Remix allows the usage of special functions in the test file to make testing more structural. They are:
 
@@ -115,7 +115,7 @@ Remix facilitates users with various types of customizations to test a contract 
 
 ### 1. Custom Compiler Context
 
-`Solidity Unit Testing` refers to the `Solidity Compiler` plugin for compiler configurations. Configure `Compiler`, `EVM Version`, `Enable Optimization` & `runs` in the `Solidity Compiler` plugin and this will be used in the `Solidity Unit Testing` plugin for contract compilation before running unit tests.
+Solidity Unit Testing refers to the Solidity Compiler plugin for compiler configurations. Configure `Compiler`, `EVM Version`, `Enable Optimization` & `runs` in the Solidity Compiler plugin and this will be used in the Solidity Unit Testing plugin for contract compilation before running unit tests.
 
 ![](images/unit-testing/a-unit-testing-custom-compiler-config.png)
 
@@ -141,7 +141,7 @@ Instructions to use:
 3. For now, customization is only available for parameters `sender` & `value`
 4. Sender is the `from` address of a transaction which is accessed using `msg.sender` inside a contract method. It should be defined in a fixed format as '**account-**<account_index>'
 5. `<account_index>` varies from `0-2` before remix-ide release v0.10.0 and `0-9` afterwards
-6. `remix_accounts.sol` must be imported in your test file to use custom `sender`
+6. **remix_accounts.sol** must be imported in your test file to use custom `sender`
 7. Value is `value` sent along with a transaction in `wei` which is accessed using `msg.value` inside a contract method. It should be a number.
 
 Regarding `gas`, Remix estimates the required gas for each transaction internally. Still if a contract deployment fails with `Out-of-Gas` error, it tries to redeploy it by doubling the gas. Deployment failing with double gas will show error: `contract deployment failed after trying twice: The contract code couldn't be stored, please check your gas limit`
@@ -152,4 +152,4 @@ Various test examples can be seen in [examples](https://remix-ide.readthedocs.io
 
 - A test contract cannot have a method with parameters. Having one such method will show error: `Method 'methodname' can not have parameters inside a test contract`
 - Number of test accounts are `3` before remix-ide release v0.10.0 and `10` afterwards
-- While a test file which imports `remix_accounts.sol` might not compile successfully with `Solidity Compiler` plugin, do not worry, this will have no bearing on its success with `Solidity Unit Testing` plugin.
+- While a test file which imports **remix_accounts.sol** might not compile successfully with Solidity Compiler plugin, do not worry, this will have no bearing on its success with Solidity Unit Testing plugin.
