@@ -112,7 +112,7 @@ Clicking on `setP` or `setPN` will create a new transaction.
 
 `setP` is a `payable` function (payable functions have red buttons). With a payable function, value (ETH) can be sent to the contract. The amount of ETH is chosen in the VALUE input field and the unit of ETH is selected in the box to the right.
 
-![](images/a-remix-vm-value.png)
+![](images/create_deploy/a-remix-vm-value.png)
 
 `setPN` is not payable (an orange button - depending on the theme). It is not possible to send value (Ether) to this function.
 
@@ -120,4 +120,4 @@ Clicking on `setP` or `setPN` will create a new transaction.
 
 The value that gets returned appears just below the `get` button.
 
-![](images/a-remix-vm-view.png)
+![](images/create_deploy/a-remix-vm-view.png)
