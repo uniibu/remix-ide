@@ -6,7 +6,7 @@ Some tutorials contain quizzes run by the Solidity Unit Tests plugin to test how
 
 ![LearnEth Plugin](images/remix_tutorials/a-learneth.png)
 
-The tutorials contain .md files for instructions and can also contain example files, Solidity Unit Test files for quizzes, as well as answer files for quizzes.
+The tutorials contain `.md` files for instructions and can also contain example files, Solidity Unit Test files for quizzes, as well as answer files for quizzes and when you finish a tutorial, it will be marked "Completed".
 
 ## Using the LearnEth Plugin
 
@@ -20,6 +20,11 @@ https://remix.ethereum.org/?#activate=udapp,solidity,LearnEth
 For other tricks about Remix URLs with parameters, visit {doc}`locations. </locations>`
 
 ```
+
+When you open a LearnEth tutorial, the example files associated with it will be loaded into a new Workspace called "LearnEth Tutorials".
+
+![LearnEth Layout](images/remix_tutorials/learneth-layout.png)
+
 
 ### Loading LearnEth with Other Repositories
 
