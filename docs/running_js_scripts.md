@@ -112,34 +112,54 @@ For more information about this example, please see: [running async/await script
 })()
 ```
 
-## `require` in scripts at Remix
+## Adding external dependencies in Remix scripts
 
-`require` or `import`statement is supported in a limited manner for Remix supported modules with Remix Scripts.
+Remix supports some external dependencies from NPM which you can use when writing scripts. The following NPM packages are loaded by default when you open or create a script on Remix.
 
-For now, NPM modules supported by Remix are:
+- ethers (v5): [Ethers v5 docs](https://docs.ethers.org/v5/)
+- zokrates-js: [Zokrates docs](https://zokrates.github.io/toolbox/zokrates_js.html)
+- web3: [Web3js docs](https://web3js.readthedocs.io/en/v1.10.0/)
+- zksync-ethers: [Zksync ethers docs](https://www.npmjs.com/package/zksync-ethers)
+- starknet: [JS library for Starknet docs](https://www.npmjs.com/package/starknet)
+- snarkjs: [Snarkjs docs](https://github.com/iden3/snarkjs)
+- circomlibjs: [Circomlibjs docs](https://github.com/iden3/circomlibjs)
+- ffjavascript: [Finite Field Library in Javascript docs](https://github.com/iden3/ffjavascript)
+- big-integer: [Big integer docs](https://www.npmjs.com/package/big-integer)
+- @zk-kit/incremental-merkle-tree: [Incremental Merkle tree implementation in TypeScript docs](https://www.npmjs.com/package/@zk-kit/incremental-merkle-tree.sol)
+- sindri: [Sindri CLI TypeScript SDK](https://www.npmjs.com/package/sindri)
+- @semaphore-protocol/data: [Semaphore data docs](https://www.npmjs.com/package/@semaphore-protocol/data)
+- @semaphore-protocol/group: [Semaphore group docs](https://www.npmjs.com/package/@semaphore-protocol/group)
+- @semaphore-protocol/identity: [Semaphore identity docs](https://www.npmjs.com/package/@semaphore-protocol/identity)
+- @semaphore-protocol/proof: [Semaphore proof docs](https://www.npmjs.com/package/@semaphore-protocol/proof)
+- crypto-js: [Cryptojs docs](https://www.npmjs.com/package/crypto-js)
+- aes-js: [AES-JS docs](https://www.npmjs.com/package/aes-js)
+- multihashes: [Multihashes docs](https://www.npmjs.com/package/multihashes)
+- openai: [TypeScript library for Openai docs](https://www.npmjs.com/package/openai)
 
-- ethers
-- web3
-- swarmgw
-- Chai
-- Starknet
-- multihashes
-- zokrates-js
-- snarkjs
-- circomlibjs
-- @zk-kit/incremental-merkle-tree
-- @semaphore-protocol/proof
-- @semaphore-protocol/group
-- @semaphore-protocol/identity
-- @semaphore-protocol/data
-- @chainlink/functions-toolkit
-- @personaelabs/spartan-ecdsa
-- @ethereumjs/util
-- ffjavascript
-- sindri
-- remix
-- hardhat (only for hardhat.ethers object)
-- @chainlink/functions-toolkit
-- @chainlink/ccip-js
+These dependencies are available by default, you do not need to install them to use; just use the `import` or `require` keyword. For example:
 
-For unsupported modules, this error `<module_name> module require is not supported by Remix IDE` will be shown.
+```js
+//using require
+const { expect } = require("chai");
+
+//using import
+import { UltraHonkBackend } from "@aztec/bb.js";
+```
+
+If you try to import an unsupported module, you will get the error below:
+
+```bash
+<module_name> module require is not supported by Remix IDE
+```
+
+### Loading script dependencies
+
+Asides the default script dependencies, you can load additional script dependencies using the Script Configuration panel. You can access this panel from the dropdown on the "Run Script" button.
+
+```{note}
+If the active file is not a script, then the "Run Script" button turns into the "Compile" button and the Open script configuration option is not present.
+```
+
+![Script config](./images/running-scripts/script-config.png)
+
+You can now choose a specific configuration for your script from the available options.

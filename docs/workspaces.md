@@ -39,3 +39,7 @@ To initialize a new Workspace for Git, check the box at the bottom of the Create
 Git initialized workspaces will have the Git icon next to them in the **Workspaces** selectbox.
 
 ![Workspaces initialized with Git](images/workspaces/a-fe-select-git.png)
+
+## Workspace configuration
+
+Each Workspace contains a configuration file named `remix.config.json` that keeps track of script dependencies and compiler configurations. The file is located at your the root of each workspace. When you want a new Workspace to have the same configuration as an existing one, copy the `remix.config.json` file from the existing Workspace to the new one.
