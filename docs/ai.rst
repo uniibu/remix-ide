@@ -73,13 +73,75 @@ In addition to privacy, Remix’s Ollama integration provides:
 - **Fill-in-the-Middle (FIM) support** – advanced code completion features
 
 .. note::
+   The Ollama integration does not support agentic workflows available in the
+   online RemixAI service, such as Remix MCP or generating and editing
+   Workspaces. Its capabilities are limited to code completion and
+   conversational interactions.
 
-   The Ollama integration does not support agentic workflows like the online
-   RemixAI service. Additionally, Ollama cannot edit Workspaces directly.
 
-To use Ollama, open the LLM selection dropdown, choose **Ollama**, and follow the
-instructions shown in the RemixAI Assistant.
+Setting up Ollama in Remix
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+Before using Ollama with Remix, ensure the following requirements are met:
 
+- **Ollama is installed** on your system. Visit the
+  `Ollama website <https://ollama.com/>`_ to download and install it.
+- **An Ollama account** is set up.
+- **At least one supported or recommended model** is installed locally.
+
+After completing the setup, start the Ollama server by running:
+
+.. code-block:: shell
+
+   ollama serve
+
+By default, the Ollama service listens on:
+
+::
+
+   http://localhost:11434
+
+You can confirm that Ollama is running by visiting the URL above. If it is running, you should see the message below.
+
+.. image:: /images/ai/ollama-running.png
+   :alt: Ollama is running text in browser.
+
+Next, to allow the Remix IDE to communicate with your local Ollama instance, you must
+configure **CORS**. See `how to setup CORS for Ollama <https://objectgraph.com/blog/ollama-cors/>`_ for instructions specific to your operating system.
+Once configured, restart the Ollama service and your terminal instance to apply the changes.
+
+
+You can check if Remix is on your Ollama allowlist by running the command below:
+
+.. code-block:: shell
+
+   curl -X OPTIONS http://localhost:11434 \
+  -H "Origin: https://remix.ethereum.org" \
+  -H "Access-Control-Request-Method: GET" \
+  -I
+
+If "remix.ethereum.org" is configured properly, you will get the message below:
+
+.. code-block:: shell
+
+   HTTP/1.1 204 No Content
+   Access-Control-Allow-Headers: Authorization, Content-Type, User-Agent, Accept, X-Requested-With, Openai-Beta, X-Stainless-Arch, X-Stainless-Async, X-Stainless-Custom-Poll-Interval, X-Stainless-Helper-Method, X-Stainless-Lang, X-Stainless-Os, X-Stainless-Package-Version, X-Stainless-Poll-Helper, X-Stainless-Retry-Count, X-Stainless-Runtime, X-Stainless-Runtime-Version, X-Stainless-Timeout
+   Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS
+   Access-Control-Allow-Origin: https://remix.ethereum.org
+   Access-Control-Max-Age: 43200
+   Allow: HEAD, GET
+   Vary: Origin
+   Vary: Access-Control-Request-Method
+   Vary: Access-Control-Request-Headers
+   Date: Sun, 11 Jan 2026 23:52:32 GMT
+
+
+.. tip:: 
+   If you run into any issues check out our `Ollama troubleshooting guide <https://github.com/remix-project-org/remix-project/blob/master/OLLAMA_SETUP.md#troubleshooting/>`_.
+
+After the setup, select Ollama as the model on RemixAI and it will automatically detect the supported models you have on your device. You can select your preferred model and use it for code completion and assistance.
+
+.. image:: /images/ai/ollama-remix.png
+   :alt: RemixAI assistant with Ollama as the model
 
 Running Ollama in the cloud with Remix
 --------------------------------------
@@ -122,7 +184,7 @@ You can also set the context to the current Workspace while typing by starting
 a request with ``/w``.
 
 RemixAI accepts audio input
---------------------------
+---------------------------
 
 RemixAI allows you to interact with the AI Assistant using **audio input**, making it easier to ask questions or give instructions without typing.
 
@@ -169,7 +231,7 @@ There is no LLM selection for code completion.
 
 
 Editor: Right-click Menu
------------------------
+------------------------
 
 When you right-click a function in the Editor, a popup menu appears with options
 powered by RemixAI, including:
@@ -201,7 +263,7 @@ Press ``Tab`` to accept the suggestion.
 
 
 Editor: Ask RemixAI with //
--------------------------
+---------------------------
 
 When the AI Copilot is enabled, you can ask coding questions directly in the Editor
 by starting a comment with ``//``.
@@ -231,7 +293,7 @@ Then provide instructions describing what you want to edit or generate.
 
 
 Compilers: Explain Error
------------------------
+------------------------
 
 In the error cards of both the Solidity Compiler and the Vyper Compiler, there is
 an **Ask RemixAI** button that helps explain compiler errors.
