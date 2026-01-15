@@ -84,6 +84,14 @@ Useful Links
 .. toctree::
    :hidden:
    :maxdepth: 2
+   :caption: Other Compilers
+   
+   noir
+   vyper
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
    :caption: Unit Testing
 
    unittesting
@@ -111,7 +119,6 @@ Useful Links
    import
    contract_verification
    running_js_scripts
-   noir
 
 .. toctree::
    :hidden:
@@ -127,7 +134,6 @@ Useful Links
    :caption: Miscellaneous
 
    plugin_list
-   vyper
    remix_as_code_viewer
    code_contribution_guide
    community
