@@ -1,9 +1,9 @@
-Using the Noir Compiler Plugin in Remix
-=======================================
+Noir Compiler
+=============
 
 Noir lets you build zero-knowledge applications without writing cryptographic circuits. This guide covers the entire workflow of using the Noir Compiler plugin in Remix IDE to compile Noir code, generate a zero-knowledge proof, and verify the generated proof using a Solidity smart contract and a js script.
 
-Creating a Noir workspace
+Creating a Noir Workspace
 -------------------------
 
 To create a Noir template, click the **"Create a new workspace"** button in the top center of the screen
