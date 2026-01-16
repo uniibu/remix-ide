@@ -5,6 +5,8 @@ Welcome to Remix's documentation!
 It requires no setup, fosters a fast development cycle, and has a rich set of plugins with intuitive GUIs.  
 The IDE comes in two flavors (web app or desktop app).
 
+**Remix Desktop**, see: `Download page <htttps://github.com/remix-project-org/remix-desktop/releases>`__
+
 **Remix Online IDE**, see: `https://remix.ethereum.org <https://remix.ethereum.org>`__
 
 **Supported browsers:** **Firefox**, **Chrome**, **Brave**. 
@@ -19,24 +21,24 @@ Remix IDE is part of the `Remix Project <https://github.com/remix-project-org/re
 Remix IDE is located at `remix.ethereum.org <https://remix.ethereum.org>`__ and more information can be found in these docs. The IDE's repo is at `GitHub <https://github.com/remix-project-org/remix-project>`__.
 
 This set of documents covers instructions on how to use Remix.  
-Additional information can be found in our `blog <https://medium.com/remix-ide>`__ and in our tutorial tool, `LearnEth <https://remix-learneth-plugin.readthedocs.io/en/latest/index.html>`__ located inside of Remix IDE.
+Additional information can be found in our `blog <https://ethereumremix.substack.com>` (formerly on: `medium <https://medium.com/remix-ide>`__) and in our tutorial tool, `LearnEth <https://remix-learneth-plugin.readthedocs.io/en/latest/index.html>`__ located inside of Remix IDE.
 
 Useful Links
 ------------
-
-- `Solidity Documentation <https://solidity.readthedocs.io>`__
-
-- `Remix Alpha <https://remix-alpha.ethereum.org>`__ - The version where we test new Remix release (not stable!).
 
 - `Remix Desktop <https://github.com/remix-project-org/remix-desktop/releases>`__ - Remix Desktop's release page. 
 
 - `Remix on Github <https://github.com/remix-project-org/remix-project>`__
 
-- `Remix on Medium <https://medium.com/remix-ide>`__
+- `Remix on Substack <https://ethereumremix.substack.com>`__
 
 - `Remix on Twitter <https://twitter.com/EthereumRemix>`__
 
-- `Our Discord support channel <https://discord.com/invite/snsrYVU4Q7>`__
+- `Remix Discord <https://discord.com/invite/qhpCQGWkmf>`__
+
+- `Remix Alpha <https://alpha.remix.live>`__ - The version where we test new Remix release (not stable!).
+
+- `Solidity Documentation <https://solidity.readthedocs.io>`__
 
 - `Ethereum.org's Developer resources <https://ethereum.org/en/developers/>`__
 
