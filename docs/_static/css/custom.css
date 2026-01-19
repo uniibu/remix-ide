@@ -12,6 +12,16 @@
   -webkit-font-smoothing: antialiased;
 }
 
+html[style*="--color-scheme: dark"]
+table.docutils tbody tr.row-even td {
+    background-color: #709EFF10 !important;
+}
+
+html[style*="--color-scheme: dark"]
+table.docutils thead {
+    color: #ffff !important;
+}
+
 nav.nav-bar {
   padding-bottom: 0px !important;
 }

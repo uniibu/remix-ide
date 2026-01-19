@@ -47,6 +47,7 @@ Useful Links
    :caption: Introduction
 
    layout
+   desktop
    security
    remix_tutorials_learneth
    locations
