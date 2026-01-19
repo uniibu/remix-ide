@@ -62,6 +62,10 @@ To download a Solidity Compiler version, select it when you're online and Remix 
 
 The offline/online indicator on the Icon Bar tracks your network and notifies you when you're online/offline.
 
+## Using Remix Desktop with other IDEs
+
+Remix Desktop accesses files directly from your file system allowing you to use your preferred IDE to write and edit code and use Remix for compiling, debugging, and testing.
+
 ## Using your native terminal in Remix Desktop
 
 You can access your system's native terminal inside Remix Desktop. You can open the native terminal from the app’s menu bar by selecting **Terminal**.
