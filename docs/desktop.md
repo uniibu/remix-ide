@@ -4,7 +4,7 @@ Remix Desktop is a standalone desktop application that provides the same feature
 
 ## Why Remix Desktop?
 
-While the web version of Remix is perfect for quick experiments and learning, Remix Desktop is designed for serious local development workflows.
+While the web version of Remix is perfect for quick experiments and learning, Remix Desktop is designed for local development workflows.
 
 With Remix Desktop, you can:
 
