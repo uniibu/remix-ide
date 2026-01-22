@@ -4,14 +4,15 @@ Remix Desktop is a standalone desktop application that provides the same feature
 
 ## Why Remix Desktop?
 
-While the web version of Remix is perfect for quick experiments and learning, Remix Desktop is designed for local development workflows.
+The web version of Remix is perfect for prototyping and learning, Remix Desktop is designed for local development workflows.
 
 With Remix Desktop, you can:
 
-- Work directly with local files and folders.
-- Use Remix offline.
-- Integrate smoothly with local tooling (Git, local nodes, scripts, native terminal).
-- Maintain the same familiar Remix UI and plugins.
+- Work directly with local files and folders
+- Use Remix offline
+- Integrate smoothly with local tooling (Git, local nodes, scripts, native terminal)
+- Maintain the same familiar Remix UI and plugins
+- Access a local development blockchain - like Anvil
 
 ### Remix Desktop vs Remix online
 
@@ -54,7 +55,7 @@ Some files in the release list are not intended for manual installation:
 
 ## Working offline with Remix Desktop
 
-Remix Desktop allows you to work offline with low or no internet connectivity. Most features work offline by default, but if you want to use multiple Solidity Compiler versions, you have to download them with an active internet connection.
+Remix Desktop allows you to work offline with low or no internet connectivity. Most features work offline by default, but there are some plugins that require an internet connection. For example, you can't deploy to a public network without the internet. But you can download versions of Solidity Compilers before you go offline. 
 
 To download a Solidity Compiler version, select it when you're online and Remix Desktop will automatically download it. Downloaded versions will remain available for offline use.
 
@@ -74,7 +75,7 @@ You can access your system's native terminal inside Remix Desktop. You can open 
 
 ## Using a browser wallet in Remix Desktop
 
-Remix Desktop does not include a built-in wallet.
+Remix Desktop does not include a "built-in wallet" but you can use a Browser Wallet.
 
 When you select **Injected Provider** (for example, MetaMask) in Remix Desktop, the connection is handled through your web browser:
 
@@ -86,8 +87,16 @@ This local URL acts as a bridge between Remix Desktop and the browser wallet.
 
 As a result, even though you are working in Remix Desktop, wallet interactions (such as signing transactions) are still performed in your browser via MetaMask.
 
+## Other wallet in Remix Desktop
+In addition to using a browser wallet, you can also use a node provider like Alchemy or Infura.  You can also use WalletConnect.  
+
 ## Hard drive security and performance
 
 Remix Desktop leverages the power of your local hard drive, allowing it to handle larger Solidity contracts and more complex Circom and Noir circuits.
 
-By running locally, Remix Desktop takes advantage of your machine’s storage and performance capabilities, enabling faster compilation and a smoother development experience compared to browser-based environments.
+By running locally, Remix Desktop takes advantage of your machine’s storage and performance capabilities.
+
+## Working with HardHat and Foundry
+Going between Foundry or HardHat and Remix Desktop is seemless because all are running on your hard drive.  Please see the {doc}`Working with HardHat or Foundry</debugger>` page for more information including about using Remix Desktop for deploying a HardHat or Foundry compiled file.  
+
+Similarly it is easy to use the {doc}`Debugger</debugger>` in Remix Desktop to untangle Solidity problems in a HardHat or Foundry project.
