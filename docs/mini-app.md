@@ -22,11 +22,11 @@ When generating your Dapp UI in QuickDapp, you **must** check the "**Create as B
 
 On the preview page of the generated UI, you will find the Base Mini App setup wizard on the left side of the screen.
 
-![](images/mini-app/setup-wizard.png)
+![Base Mini App setup wizard in the QuickDapp preview page](images/mini-app/setup-wizard.png)
 
 The first tab on the setup wizard requires a Base App ID meta tag. You can get this by navigating to the [Base Developer Portal](https://www.base.dev/)
 
-![](images/mini-app/mini-app-tags.png)
+![Base App ID meta tag on the Base Developer Portal](images/mini-app/mini-app-tags.png)
 
 Copy the meta tags, paste it in the setup wizard, and click "**Save & Next**".
 
@@ -38,7 +38,7 @@ The App URL should be blank in the step, you will deploy and get the ENS domain 
 
 On the next tab, you will register an ENS subdomain for free under `remixdapp.eth`. Choose your preferred name, for example, `flashloan` -> `flashloan.remixdapp.eth` and click "**Deploy and Next**".
 
-![](images/mini-app/ens.png)
+![ENS subdomain registration field in the setup wizard](images/mini-app/ens.png)
 
 ## Verifying ownership of the mini app
 
@@ -52,8 +52,8 @@ Copy the URL and paste it in the App URL field on the Base Developer Portal and 
 
 Once verified, a modal containing an Account Association JSON code will pop up.
 
-![](images/mini-app/json-code-modal.png)
+![Account Association JSON code modal on the Base Developer Portal](images/mini-app/json-code-modal.png)
 
 Copy it and paste it into the provided field on the setup wizard. Click "**Verify & Next**"
 
-![](images/mini-app/aa-json-code.png)
+![Pasting the Account Association JSON into the setup wizard](images/mini-app/aa-json-code.png)
