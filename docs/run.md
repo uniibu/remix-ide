@@ -81,6 +81,19 @@ The ABI is a JSON array that describes a contract's functions, inputs, and outpu
 To get the ABI of a contract you've compiled, open the Solidity Compiler plugin, compile the contract, then click **Compilation Details**. The ABI is listed in the modal that appears.
 ```
 
+## Forking chains in Remix
+
+Forking a chain will bring that chain to the Remix VM. Once it is forked, you'll have access to the 10 accounts loaded with 100 ETH.
+
+You can also fork the Remix VM in its current state. Click the version control icon to the right of the Environment title to create a fork and then to name it. Switching between forks is done in the Environment dropdown menu. You can also reset the state of the VM by clicking the refresh icon to the right of the version control icon. Forking the VM lets you snapshot a working state, try changes, and return to the original if needed.
+
+![Fork VM state modal.](images/deploy-and-run/fork-vm-state.png)
+
+If **Save environment state** (Settings → General) is enabled, the Remix VM
+state (including forked VM states) is saved in the `.states` folder so you can
+refresh and resume later. Browser storage can still be cleared or corrupted, so
+back up important work with Git.
+
 ## Supported Environments
 
 The Deploy & Run plugin supports several environments that determine where your transactions are sent and how they are signed. You can choose between an in-browser sandbox (including forked chains), a browser wallet, a mobile wallet, or a locally running node.
@@ -161,19 +174,6 @@ Development environments connect Remix to locally running nodes or L2 networks, 
 ```{note}
 When using a local provider (Hardhat or Foundry), make sure the node is running before selecting the environment in Remix.
 ```
-
-## Forking chains in Remix
-
-Forking a chain will bring that chain to the Remix VM. Once it is forked, you'll have access to the 10 accounts loaded with 100 ETH.
-
-You can also fork the Remix VM in its current state. Click the version control icon to the right of the Environment title to create a fork and then to name it. Switching between forks is done in the Environment dropdown menu. You can also reset the state of the VM by clicking the refresh icon to the right of the version control icon. Forking the VM lets you snapshot a working state, try changes, and return to the original if needed.
-
-![Fork VM state modal.](images/deploy-and-run/fork-vm-state.png)
-
-If **Save environment state** (Settings → General) is enabled, the Remix VM
-state (including forked VM states) is saved in the `.states` folder so you can
-refresh and resume later. Browser storage can still be cleared or corrupted, so
-back up important work with Git.
 
 ## More about External HTTP Provider
 
