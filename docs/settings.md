@@ -32,11 +32,17 @@ The Appearance subsection allows you to customize the look of Remix. You can cho
 
 ![Remix Analytics Page.](images/settings/remix-analytics.png)
 
-## RemixAI Assistant
+## AI Settings
 
-![RemixAI Assistant Settings Page](images/settings/a-settings-ai1.png)
+![AI Settings Panel](images/ai/a-ai-settings.png)
 
-These settings are primarily for the code completion functions of Remix's AI tool, Solidity Copilot. See this {doc}`doc page </ai>` for more information about AI in Remix.
+The AI Settings panel allows you to configure RemixAI, manage LLM selections, and control **Model Context Protocol (MCP)** connections.
+
+- **LLM Configuration**: Select your preferred AI model (OpenAI, Anthropic, MistralAI, or local Ollama).
+- **MCP Connections**: Enable or disable connected MCPs (Remix IDE, Workspace, Terminal) and manage their permissions. This allows the AI to perform agentic tasks within your environment.
+- **Privacy & Data**: Configure data retention and privacy settings for your AI interactions.
+
+For more information about using AI in Remix, see the {doc}`AI documentation </ai>`.
 
 ## Connected Services
 

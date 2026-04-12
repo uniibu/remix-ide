@@ -77,10 +77,7 @@ In addition to privacy, Remix’s Ollama integration provides:
 - **Fill-in-the-Middle (FIM) support** – advanced code completion features
 
 .. note::
-   The Ollama integration does not support agentic workflows available in the
-   online RemixAI service, such as Remix MCP or generating and editing
-   Workspaces. Its capabilities are limited to code completion and
-   conversational interactions.
+   While the online RemixAI service supports agentic workflows via **Remix MCP**, the Ollama integration is currently limited to code completion and conversational interactions. See the :ref:`Model Context Protocol (MCP)` section for more information.
 
 
 Setting up Ollama in Remix
@@ -160,7 +157,7 @@ Remix supports this by allowing you to specify the Ollama server URL.
 Follow the steps below to configure a remote Ollama instance in Remix:
 
 1. Click the **gear icon** in the top-right corner of Remix to open the **Settings** panel.
-2. Navigate to the **RemixAI Assistant** section.
+2. Navigate to the **AI Settings** section.
 3. Under **Ollama URL Configuration**, enter the URL of the machine running Ollama.
 
 .. image:: images/ai/configure-ollama-remote.png
@@ -211,6 +208,31 @@ Audio input is especially useful for:
 
    Audio input requires microphone access enabled in your browser. The availability of audio input may depend on
    browser support and permissions.
+
+
+Model Context Protocol (MCP)
+----------------------------
+
+RemixAI supports the **Model Context Protocol (MCP)**, which allows the AI assistant to interact directly with your development environment. This enables "agentic" workflows where the AI can perform actions like compiling contracts, running tests, and managing files.
+
+For beta testers, the following MCPs are connected:
+
+- **Remix IDE**: Provides access to core IDE functionality like the Solidity Compiler, Debugger, and Run & Deploy modules.
+- **Remix Workspace**: Allows the AI to read, write, and list files in your current workspace.
+- **Terminal**: Enables the AI to execute commands and scripts in the Remix terminal.
+
+Sample Prompts for MCP
+^^^^^^^^^^^^^^^^^^^^^^
+
+Here are some examples of how you can use these connected MCPs:
+
+- **Compiler**: *"Compile the active file and explain any errors."* or *"Fix the compilation errors in Ballot.sol."*
+- **Workspace**: *"List all files in the contracts folder."* or *"Create a new test file for the current contract with 5 test cases."*
+- **Deployment**: *"Deploy the current contract to the Remix VM and call the 'mint' function with 100 as an argument."*
+- **Search**: *"Find all occurrences of 'reentrancy' in the workspace and suggest security improvements."*
+
+.. note::
+   MCP features are currently in beta. You can manage connected MCPs and their permissions in the **AI Settings** panel.
 
 
 
