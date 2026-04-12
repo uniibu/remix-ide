@@ -77,6 +77,7 @@ Useful Links
    run_proxy_contracts
    quickdapp
    deploy_dapp
+   mini-app
    account-abstraction-7702
    terminal
    remixd
@@ -128,7 +129,6 @@ Useful Links
    import
    contract_verification
    running_js_scripts
-   mini-app
 
 .. toctree::
    :hidden:
