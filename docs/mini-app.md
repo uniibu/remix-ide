@@ -1,3 +1,10 @@
+---
+myst:
+  html_meta:
+    "description": "Deploy a QuickDapp-generated dApp as a Base mini app — register an ENS subdomain under remixdapp.eth and verify ownership through the Base Developer Portal."
+    "keywords": "base mini app, farcaster frames, quickdapp, ens, remixdapp.eth, base developer portal, deploy dapp, remix ide"
+---
+
 # Deploy a Base Mini App
 
 ```{warning}
