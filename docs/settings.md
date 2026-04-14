@@ -32,11 +32,11 @@ The Appearance subsection allows you to customize the look of Remix. You can cho
 
 ![Remix Analytics Page.](images/settings/remix-analytics.png)
 
-## AI Settings
+## RemixAI Assistant
 
-![AI Settings Panel](images/ai/a-ai-settings.png)
+![RemixAI Assistant Settings Page](images/settings/a-settings-ai1.png)
 
-The AI Settings panel allows you to configure RemixAI, manage LLM selections, and control **Model Context Protocol (MCP)** connections.
+The RemixAI Assistant section allows you to configure RemixAI, manage LLM selections, and control **Model Context Protocol (MCP)** connections.
 
 - **LLM Configuration**: Select your preferred AI model (OpenAI, Anthropic, MistralAI, or local Ollama).
 - **MCP Connections**: Enable or disable connected MCPs (Remix IDE, Workspace, Terminal) and manage their permissions. This allows the AI to perform agentic tasks within your environment.

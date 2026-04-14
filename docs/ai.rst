@@ -157,7 +157,7 @@ Remix supports this by allowing you to specify the Ollama server URL.
 Follow the steps below to configure a remote Ollama instance in Remix:
 
 1. Click the **gear icon** in the top-right corner of Remix to open the **Settings** panel.
-2. Navigate to the **AI Settings** section.
+2. Navigate to the **RemixAI Assistant** section.
 3. Under **Ollama URL Configuration**, enter the URL of the machine running Ollama.
 
 .. image:: images/ai/configure-ollama-remote.png
@@ -232,7 +232,7 @@ Here are some examples of how you can use these connected MCPs:
 - **Search**: *"Find all occurrences of 'reentrancy' in the workspace and suggest security improvements."*
 
 .. note::
-   MCP features are currently in beta. You can manage connected MCPs and their permissions in the **AI Settings** panel.
+   MCP features are currently in beta. You can manage connected MCPs and their permissions in the **RemixAI Assistant** section.
 
 
 
