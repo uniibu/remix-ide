@@ -52,6 +52,13 @@ the transaction is mined, the newly created instance will be added
 If the contract's constructor function has parameters, you will need to specify them.
 ```
 
+## Verifying on deployment
+When connected to a public network, there is a switch to enable contract verification.
+
+![The contract verification switch.](images/deploy-and-run/deploy-verify-switch.png)
+
+The contract's source-code and metadata will be submitted to Etherscan, Sourcify, Blockscout, and Routescan.  For the verification to go through on Etherscan, their API needs to be input either in the Remix Settings panel or in the Contract Verification plugin's Settings tab.  Verification can also be done using the Contract Verification plugin.
+
 ## Loading deployed contracts
 
 If a contract has already been deployed, you can load it into Remix using the "**Add Contract**" button on the **Deployed Contracts** section.
