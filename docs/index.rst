@@ -96,6 +96,7 @@ Useful Links
    :caption: Other Compilers
    
    noir
+   circom
    vyper
 
 .. toctree::
