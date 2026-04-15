@@ -7,19 +7,22 @@ myst:
 
 # Debugging Transactions
 
-(also see this page's companion: {doc}`the Debugger Tour </debugger>`)
+```{tip}
+Before using this tutorial, we recommend checking out {doc}`the Debugger Tour </debugger>` for an overview of the debugger's interface and panels.
+```
 
-There are two ways to start a debugging session, each one corresponds to a different use case.
+When developing smart contracts, things don't always behave as expected. A transaction might revert unexpectedly, a function might return the wrong value, or funds might not move the way you intended.
 
-- Use Case 1: for debugging a transaction made in Remix - click the **Debug button** in the transaction log in Remix's Terminal.
+These are the situations where Remix's debugger becomes essential. It lets you step through a transaction execution line by line, inspect local variables and state at each step, and pinpoint exactly where your contract's logic breaks down.
 
-- Use Case 2: for debugging a transaction where you have a **txn hash** from a **verified contract** or where you have the txn hash and the compiled source code with the same compilation settings as the deployed contract.
+In this tutorial, we'll walk through using the debugger with a contract that has an intentional bug, so you can see how to identify and trace a problem through the execution flow.
 
-### Initiate Debugging from the transaction log in the Terminal
+## Debugging a Transaction Made in Remix
 
-Let's start with a basic contract ( or replace the contract below with your own )
+We'll use the following `Donation` contract as our example. Don't worry about understanding every detail yet — we'll be using the debugger to explore how it executes.
 
 ```Solidity
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 contract Donation {
     address owner;
@@ -40,7 +43,8 @@ contract Donation {
         uint balance = address(this).balance;
         uint amount = _amount;
         if (amount <= balance) {
-            if (_to.send(balance)) {
+            (bool success, ) = _to.call{value: balance}("");
+            if (success) {
                 emit fundMoved(_to, amount);
             } else {
                revert();
@@ -57,69 +61,86 @@ contract Donation {
 }
 ```
 
-- Make a new file in Remix and copy the code above into it.
-- Compile the code.
-- Go to the Run & Deploy module.
+Make a new file in Remix and copy the code block above into it, compile it and deploy it on the Remix VM.
 
-For the purpose of this tutorial, we will run the `Remix VM`.
+![](images/tutorial-debug/deploy.png)
 
-- Deploy the contract:
+We are going to call the `Donate` function and will send 2 Ether.
 
-Click the `Deploy` button
+To do this: in the value input box put in **2** and **select Ether** as the unit. Do not leave the default unit as **gwei** or the change will be hard to detect.
 
-![](images/a-debug1-deploy.png)
-
-You'll see the deployed instance (AKA the udapp).
-
-Open it up (by clicking the caret).
-
-![](images/a-debug3-udapp2.png)
-
-We are going to call the `Donate` function and will send 2 Ethers.
-
-To do this: in the value input box put in **2** and **select Ether** as the unit (DO NOT LEAVE THE DEFAULT unit as **gwei** or the change will be hard to detect).
-
-![](images/a-debug4-value-loc.png)
+![](images/tutorial-debug/call-donate.png)
 
 Then click the `Donate` button.
 
-This will send the Ether to the function.
+The 2 ETH is now held by the contract. Because we are using the `Remix VM`, the transaction confirms almost instantly.
 
-Because we are using the `Remix VM`, everything happens almost instantly. (If we had been using Injected Provider, then we would have needed to approve the transaction, pay for gas and wait for the transaction to get mined.)
+Now let's try to move 1 ETH out of the contract using `moveFund`. In the deployed instance, find the `moveFund` inputs and provide:
 
-Remix displays information related to each transaction result in the terminal.
+- `_to`: a **different address from the Account dropdown that did not call `donate`**. Use an account with a clean 100 ETH balance so the balance change is clearly visible. Copy the address, then switch back to the owner account to make the call.
+- `_amount`: `1000000000000000000` (1 ETH in wei)
 
-Check in the **terminal** where the transaction you just made is logged.
+```{important}
+Before clicking `moveFund`, reset the **Value** field to **0**. Remix keeps the value from the previous `donate` call. Since `moveFund` is not payable, sending ETH with the call will cause it to revert immediately.
+```
 
-Click the **debug button**.
+![](images/tutorial-debug/call-move-fund.png)
 
-![](images/a-debug5-term-debug-but.png)
+Click **Transact**.
 
-But before we get to the actual debugging tool, the next section shows how to start a debugging session directly from the Debugger.
+The transaction succeeds, but check the recipient's balance by selecting their address in the **Account** dropdown. Instead of receiving 1 ETH, the entire 2 ETH contract balance was transferred. Something is wrong.
 
-### Initiate Debugging from the Debugger
+Notice also that the terminal log shows `_amount: 1000000000000000000` (1 ETH) in the `fundMoved` event, matching what you requested. The event does not reveal the discrepancy because the contract emits `amount` (the requested value) rather than the amount actually sent. Without the debugger, the logs alone would not expose this bug.
 
-Click the bug icon in the icon panel to get to the debugger in the side panel.
+In the **terminal**, find the `moveFund` transaction and click its **Debug** button.
 
-If you don't see the bug icon, go to the plugin manager and activate the debugger.
+![Debug button in the terminal transaction log](images/debugger/debug-button.png)
 
-You can start a debug session by providing a `transaction hash`.
+The debugger opens and highlights the current execution point in the editor. Use the **Step Forward** button to move forward through `moveFund` line by line.
+
+As you step through the function, watch the **State & Locals** panel. You'll see the local variables populate under the **locals** section as they are assigned:
+
+- `_amount`: the value you passed in: `1000000000000000000` (1 ETH in wei)
+- `balance`: the full contract balance: `2000000000000000000` (2 ETH in wei)
+- `amount`: assigned from `_amount`: `1000000000000000000` (1 ETH in wei)
+
+Continue stepping until the debugger reaches the transfer line:
+
+```solidity
+(bool success, ) = _to.call{value: balance}("");
+```
+
+At this point, look at the **locals** section of the **State & Locals** panel. The `value` being sent by the call is `2000000000000000000` (the full contract balance), not the `1000000000000000000` (1 ETH) you requested. The function is sending `balance` instead of `amount`. The check `if (amount <= balance)` used `amount` correctly, but the transfer itself did not.
+
+To fix the bug, change `balance` to `amount` in the transfer line:
+
+```solidity
+(bool success, ) = _to.call{value: amount}("");
+```
+
+This ensures only the requested amount is sent, not the entire contract balance.
+
+## Starting a Debug Session from the Debugger Panel
+
+As an alternative to clicking **Debug** in the terminal, you can start a session directly from the Debugger panel using a transaction hash.
+
+Click the bug icon in the Icon Panel to open the Debugger. If you don't see the bug icon, activate the Debugger in the Plugin Manager.
 
 To find a transaction hash:
 
 1. Go to a transaction in the terminal.
-2. Click a line with a transaction - to expand the log.
-3. The transaction hash is there - copy it.
+2. Click a line with a transaction to expand the log.
+3. Copy the transaction hash.
 
-![](images/a-debug6-term-txn-hash.png)
+![](images/tutorial-debug/tx-hash.png)
 
-Then, in the debugger, paste the hash and click the `Start debugging` button.
+Paste the hash into the Debugger and click the button with the Play icon.
 
-![](images/a-debug7-debugger.png)
+![](images/tutorial-debug/debug-with-hash.png)
 
 ## Using the debugger
 
-![](images/a-debug8-top3.png)
+![](images/tutorial-debug/overview.png)
 
 The debugger allows one to see detailed information about the
 transaction's execution. It uses the editor to display the
@@ -130,78 +151,44 @@ step through the transaction execution.
 
 ### Explanation of Debugger button capabilities
 
-1. Step Over Back
-   Returns to the previous step, but ignores/steps over function calls: the debugger WILL NOT enter a function
+1. Step Backward
+   Steps back to the previous opcode without entering function calls. Use this to move backwards without descending into function internals.
 2. Step Back
-   Returns to the previous step. Does not ignore function calls: the debugger WILL enter any function along the way
+   Steps back to the previous opcode and **will** enter function calls. Use this to trace execution backwards in full detail.
 3. Step Into
-   Forwards to the next step. Does not ignore function calls: the debugger WILL enter any function along the way
-4. Step Over Forward
-   Forwards to the next step, but ignores/steps over function calls: the debugger WILL NOT enter a function
-5. Jump to the Previous Breakpoint
-   Sends the debugger to the last visited breakpoint. Note that breakpoints may be set by clicking the line number in source code
-6. Jump Out
-   Sends the debugger to the function's end
-7. Jump to the Next Breakpoint
-   Sends the debugger to the next breakpoint
+   Advances to the next opcode and **will** enter function calls. Use this for full visibility into what a function is doing.
+4. Step Forward
+   Advances to the next opcode without entering function calls. Use this to move forward without stepping into every function.
+5. Previous Breakpoint
+   Moves the debugger back to the most recently passed breakpoint. Breakpoints are set by clicking a line number in the Editor.
+6. Next Breakpoint
+   Moves the debugger forward to the next breakpoint ahead in the execution.
 
-## 11 panels give detailed information about the execution:
+## Debugger panels
 
-### Instructions
+### State & Locals
 
-The Instructions panel displays the bytecode of the current executing
-contract — with the current step highlighted.
+The **State & Locals** tab displays a JSON object with two keys:
 
-Important note: When this panel is hidden, the slider will have a
-coarser granularity and only stop at _expression boundaries_, even if they
-are compiled into multiple EVM instructions. When the panel is
-displayed, it will be possible to step over every instruction, even
-those that refer to the same expression.
+- `locals`: the local variables in scope at the current execution step
+- `state`: the state variables of the contract at the current execution step
 
-### Solidity Locals
+### Stack & Memory
 
-The Solidity Locals panel displays local variables associated with the
-current context.
+The **Stack & Memory** tab displays low-level EVM execution state:
 
-### Solidity State
-
-The Solidity State panel displays state variables of the current
-executing contract.
-
-### Low level panels
-
-These panels display low level information about the execution:
-
-> - Stack
-> - Storage Changes
-> - Memory
-> - Call Data
-> - Call Stack
-> - Return Value (only if the current step is a RETURN opcode)
-> - Full Storage Changes (only at the end of the execution & it displays all the storage changes)
-
-### Reverted Transaction
-
-A transaction can be `reverted` (because of an _out of gas exception_, a Solidity `revert` statement or a low level exception).
-
-It is important to be aware of the exception and to locate where the exception is in the source code.
-
-Remix will warn you when the execution throws an exception.
-The `warning` button will jump to the last opcode before the exception happened.
+- `opcode`: the current opcode, updated with each step
+- `callStack`: the call stack at the current step
+- `stack`: the EVM operand stack
+- `memory`: the EVM memory, cleared for each new message call
 
 ### Breakpoints
 
-The two last buttons from the navigation area are used to jump either
-back to the previous breakpoint or forward to the next breakpoint.
+Breakpoints can be added and removed by clicking on the line number in the **Editor**. When debugging, execution will jump to the first encountered breakpoint.
 
-Breakpoints can be added and removed by clicking on the line number in the **Editor**.
-
-When using a debug session with breakpoints, the execution will jump to the first
-encountered breakpoint.
-
-**Important note:** If you add a breakpoint to a line that declares a
-variable, it might be triggered twice: Once for initializing the
-variable to zero and a second time for assigning the actual value.
+```{important}
+If you add a breakpoint to a line that declares a variable, it might be triggered twice: once for initializing the variable to zero and a second time for assigning the actual value.
+```
 
 Here's an example of this issue. If you are debugging the following contract:
 
@@ -226,7 +213,7 @@ And breakpoints are set for the lines
 
 `uint l = 34;`
 
-then clicking on the `Jump to the next breakpoint` button will stop at the following
+then clicking the **Next Breakpoint** button will stop at the following
 lines in the given order:
 
 > `uint p = 45;` (declaration of p)
