@@ -77,7 +77,10 @@ In addition to privacy, Remix’s Ollama integration provides:
 - **Fill-in-the-Middle (FIM) support** – advanced code completion features
 
 .. note::
-   While the online RemixAI service supports agentic workflows via **Remix MCP**, the Ollama integration is currently limited to code completion and conversational interactions. See the :ref:`Model Context Protocol (MCP)` section for more information.
+   The Ollama integration does not support agentic workflows available in the
+   online RemixAI service, such as Remix MCP or generating and editing
+   Workspaces. Its capabilities are limited to code completion and
+   conversational interactions.
 
 
 Setting up Ollama in Remix
@@ -211,30 +214,81 @@ Audio input is especially useful for:
 
 
 Model Context Protocol (MCP)
-----------------------------
+-----------------------------
 
-RemixAI supports the **Model Context Protocol (MCP)**, which allows the AI assistant to interact directly with your development environment. This enables "agentic" workflows where the AI can perform actions like compiling contracts, running tests, and managing files.
+Remix supports **Model Context Protocol (MCP)** servers, which give the RemixAI access to external tools and libraries during agentic workflows.
 
-For beta testers, the following MCPs are connected:
+You can manage the MCP servers available to you managed in **Settings > RemixAI Assistant**. Here you can turn the available servers on and off, depending on your preferences.
 
-- **Remix IDE**: Provides access to core IDE functionality like the Solidity Compiler, Debugger, and Run & Deploy modules.
-- **Remix Workspace**: Allows the AI to read, write, and list files in your current workspace.
-- **Terminal**: Enables the AI to execute commands and scripts in the Remix terminal.
-
-Sample Prompts for MCP
-^^^^^^^^^^^^^^^^^^^^^^
-
-Here are some examples of how you can use these connected MCPs:
-
-- **Compiler**: *"Compile the active file and explain any errors."* or *"Fix the compilation errors in Ballot.sol."*
-- **Workspace**: *"List all files in the contracts folder."* or *"Create a new test file for the current contract with 5 test cases."*
-- **Deployment**: *"Deploy the current contract to the Remix VM and call the 'mint' function with 100 as an argument."*
-- **Search**: *"Find all occurrences of 'reentrancy' in the workspace and suggest security improvements."*
-
-.. note::
-   MCP features are currently in beta. You can manage connected MCPs and their permissions in the **RemixAI Assistant** section.
+.. image:: images/ai/connected-mcps.png
+   :alt: Remix MCP Connected Services panel
 
 
+The following MCP servers are available in RemixAI:
+
+- **Remix IDE Server** (Built-in) – Always connected. Gives the AI direct access to
+  your workspace files and IDE features such as compilation, file management, and
+  Slither static analysis.
+- **OpenZeppelin Contracts** – Gives the AI access to OpenZeppelin's audited contract 
+  library, so it can suggest secure, battle-tested implementations rather than 
+  generating patterns from scratch.
+- **Web Search** – Allows the AI to retrieve up-to-date information such as recent 
+  protocol changes, audit reports, and external documentation.
+
+The following MCP servers are additionally available to **Beta testers**:
+
+- **ethSkills** – A curated Ethereum knowledge base designed specifically for AI 
+  agents. It covers production-ready guidance across gas costs, L2s, token standards, 
+  DeFi protocols, security patterns, contract auditing, and more, helping the AI avoid 
+  stale or hallucinated answers about Ethereum development.
+- **Alchemy** – Allows the AI to query live on-chain data including account balances, 
+  transaction histories, and contract state via Alchemy's infrastructure.
+- **Etherscan** – Allows the AI to look up deployed contracts, inspect verified source 
+  code, and retrieve transaction data directly from the block explorer.
+- **The Graph API** – Allows the AI to query indexed blockchain data via GraphQL 
+  subgraphs, useful for retrieving protocol analytics and historical event data.
+
+
+Sample prompts
+^^^^^^^^^^^^^^
+
+The examples below show how to phrase requests to get the most out of the RemixAI Assistant. Each section explains the intent behind the prompt type and gives one example.
+
+**Writing contracts**
+
+Ask RemixAI to generate a contract from a plain-language description. Be specific about the behaviour you want (access control, token standards, limits) and the AI will produce a starting implementation you can refine.
+
+  *Write an ERC-20 token contract with a mint function restricted to the owner and a maximum supply of 1 million tokens.*
+
+**Security review**
+
+Ask RemixAI to analyse a specific contract or the active file for vulnerabilities. You can target a particular class of issue or ask for a general review. Slither static analysis is built into the Remix IDE Server, so the AI can run it and incorporate the results without any additional setup.
+
+  *Review the active contract for reentrancy vulnerabilities and suggest fixes.*
+
+**Using OpenZeppelin** *(OpenZeppelin MCP)*
+
+Ask RemixAI to suggest or apply an OpenZeppelin implementation instead of writing custom logic. The AI has access to the full OpenZeppelin library and can recommend the right base contract for your use case.
+
+  *Replace the access control in this contract with OpenZeppelin's Ownable.*
+
+**Querying live on-chain data** *(Alchemy / Etherscan, Beta)*
+
+Ask RemixAI to look up real-time blockchain data such as balances, transactions, or verified source code. Useful for investigating a deployed contract or checking an address without leaving the IDE.
+
+  *Fetch the verified source code and recent transactions for this contract address: 0x...*
+
+**Querying indexed protocol data** *(The Graph, Beta)*
+
+Ask RemixAI to query a subgraph for aggregated or historical data. Useful for retrieving protocol-level metrics or event histories that are not available from a single contract call.
+
+  *Get the total value locked in Aave on Ethereum over the last 7 days using a subgraph query.*
+
+**General Solidity and Ethereum questions**
+
+Ask RemixAI about language features, best practices, or protocol mechanics. The Web Search MCP server allows it to retrieve up-to-date information, so it can answer questions about recent changes that postdate its training data.
+
+  *What changed in Solidity 0.8.24 that could affect a contract I wrote for 0.8.20?*
 
 Code completion
 ---------------
