@@ -1,52 +1,68 @@
 ---
 myst:
   html_meta:
-    "description": "Run Slither static analysis on Solidity contracts in Remix IDE via Remixd integration to detect security vulnerabilities."
+    "description": "Run Slither static analysis on Solidity contracts in Remix IDE to detect security vulnerabilities and get detailed contract information."
     "keywords": "slither remix, static analysis, smart contract security, remixd, solidity"
 ---
 
 # Slither
 
-[Slither](https://github.com/crytic/slither) is a static analysis framework for Solidity. It runs a suite of vulnerability detectors and provides information about contract details. Slither analysis is available in Remix Desktop through the `Solidity Static Analysis` plugin.
+[Slither](https://github.com/crytic/slither) is a static analysis framework for Solidity. It runs a suite of vulnerability detectors and provides information about contract details.
 
 ## Prerequisites
 
-To use Slither analysis with Remix IDE efficiently, following tools should be installed locally on your system:
+To use Slither analysis with Remix IDE efficiently, the following tools should be installed locally on your system:
 
 1. **Slither:** [Installing Slither](https://crytic.github.io/slither/slither.html#how-to-install)
 2. **Solc:** [Installing Solidity](https://docs.soliditylang.org/en/latest/installing-solidity.html)
 3. **Solc-select:** [Solc Quickstart](https://github.com/crytic/solc-select#quickstart)
 
-### How to use
+## How to use
+
+Slither analysis is available in Remix Desktop through the `Solidity Static Analysis` plugin and on Remix Web through RemixAI.
+
+### Remix Web
+
+On Remix Web, Slither analysis is available through RemixAI. Open the RemixAI assistant, describe your contract, and ask it to run a Slither analysis.
+
+Here's an example prompt:
+
+```
+Run a Slither analysis on MyToken.sol and list any security vulnerabilities or warnings.
+```
+
+The `Slither` checkbox in the Solidity Static Analysis plugin will be greyed out on Remix Web.
+
+### Remix Desktop
 
 If you load a local project in Remix Desktop, there will be an extra checkbox shown in `Solidity Static Analysis` plugin with the label `Slither` (On Remix Web, this option will be greyed out).
 
-![](images/a-slither-analysis.png)
+![Slither checkbox in the Solidity Static Analysis plugin](images/a-slither-analysis.png)
 
-The Slither Analysis report will be displayed on the Slither tab of the Solidity Analyzers plugin, next to the Remix analysis report for better user readability.
+The Slither Analysis report will be displayed on the Slither tab of the Solidity Static Analysis plugin, next to the Remix analysis report for better readability.
 
-![](images/a-slither-analysis-success.png)
+![Slither analysis report in the Solidity Static Analysis plugin](images/a-slither-analysis-success.png)
 
-The result of the analysis will be shown in the Remix IDE terminal
+The result of the analysis will be shown in the Remix IDE terminal.
 
-![](images/a-slither-analysis-success-terminal.png)
+![Slither analysis result in the Remix IDE terminal](images/a-slither-analysis-success-terminal.png)
 
-To only run Slither Analysis, deselect the `Remix` and `Solhint` checkbox and click on "Analyze". Now it will show only the Slither Analysis report.
+To only run Slither Analysis, deselect the `Remix` and `Solhint` checkboxes and click on "Analyze". Now it will show only the Slither Analysis report.
 
 By default, it doesn't show the warnings for external libraries like remix-tests.sol, hardhat/console.sol etc. To have a look at them, check the box with label `Show warnings for external libraries`.
 
-![](images/a-slither-analysis-ext-libs.png)
+![Slither analysis report showing warnings for external libraries](images/a-slither-analysis-ext-libs.png)
 
 ### More Details
 
-Analysis for Slither is run using the version set in `Solidity Compiler` plugin on Remix IDE. Slither is a CLI tool and requires `solc` to run the analysis. Before running the analysis, Slither WebSocket plugin checks if current version of solc is same as the version set in Remix IDE.
+Analysis for Slither is run using the version set in the `Solidity Compiler` plugin. Slither is a CLI tool and requires `solc` to run. Before running the analysis, the Slither WebSocket plugin checks if the current local `solc` version matches the version set in Remix IDE.
 
-If the compiler version set in Solidity Compiler is different from current version of solc installed locally, the Slither WebSocket plugin will update the `solc` to be the same as the required version `solc-select`.
+If the versions differ, the Slither WebSocket plugin will use `solc-select` to switch the local `solc` version to match.
 
-For example, if current `solc` version on the system is 0.8.4 and on the Remix IDE 0.8.6 is set, the logs explain remote solc version selection.
+For example, if the local `solc` version is 0.8.4 and Remix IDE is set to 0.8.6, the logs will show the version switch.
 
-![](images/a-slither-analysis-select.png)
+![Slither WebSocket plugin log showing solc version selection](images/a-slither-analysis-select.png)
 
-After successful analysis run:
+After a successful analysis run:
 
-![](images/a-slither-analysis-select-success.png)
+![Slither analysis success after solc version switch](images/a-slither-analysis-select-success.png)
