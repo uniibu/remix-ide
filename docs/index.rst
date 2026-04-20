@@ -89,6 +89,7 @@ Useful Links
 
    compile
    debugger
+   tutorial_debug
    static_analysis
 
 .. toctree::
@@ -126,7 +127,6 @@ Useful Links
    :caption: Guides
    
    create_deploy
-   tutorial_debug
    import
    contract_verification
    running_js_scripts
