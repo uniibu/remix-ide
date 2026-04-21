@@ -7,47 +7,70 @@ myst:
 
 # Contract Verification
 
-Remix has a plugin for contract verification. With this plugin, you can verify your contracts on Sourcify, Etherscan, Blockscout and Routescan.
+Remix IDE includes a plugin for contract verification called "**Contract Verification**", available in the Plugin Manager. This plugin supports contract verification on Sourcify, Etherscan, Blockscout, and Routescan. The plugin has 4 tabs: the **Verify** tab, the **Receipts** tab, the **Lookup** tab, and the **Settings** tab. You can also verify contracts directly from the [Deploy and Run](#verifying-with-deploy-and-run) plugin.
 
-The plugin is called: **CONTRACT VERIFICATION**.
-
-You can access it from the Plugin Manager.
-
-The plugin has 4 pages, the **Verify** page, the **Receipts** page, the **Lookup** page, and the **Settings** page.
-
-## Verify page
+## Verify tab
 
 This is the home view of the plugin where you can verify your contracts.
 
-![Contract verification home page](images/contract-verification/a-cv-verify-page.png)
+![Contract verification home page](images/contract-verification/verify-tab.png)
 
-You can select which verification services you want to use. By default, all that have a valid configuration are selected. On Ethereum Mainnet, this will be all but Etherscan. In order to enable Etherscan, you need to input an API key in the Settings page.
+To verify a contract, you need to have:
 
-**The prerequisites for verification are:**
+1. The address of a deployed contract on a public network.
+2. The same contract source code compiled in Remix, using the same compiler version, optimization settings, and EVM version that were used during deployment.
+3. Constructor arguments matching those used during deployment (if applicable).
 
-1. The address of a deployed contract on a public network
-2. That same contract compiled in Remix
-3. Constructor parameters same as used during deployment (if required)
+With the above, you can select which verification services you want to use for your verification by checking their boxes. By default, all of them have valid configurations that allow you to verify without any setup. The only exception to this is verification using Etherscan on Ethereum Mainnet; this requires a valid [Etherscan API key](https://docs.etherscan.io/getting-started) which you can provide on the settings tab.
 
-## Receipts page
+### Verifying with constructor arguments
 
-Verification receipts are found on the receipts page.
+When a contract has arguments in the constructor, a text field will appear where you can enter the constructor arguments used during deployment.
 
-![Contract verification receipts page with the Receipts bar highlighted.](images/contract-verification/a-cv-receipts-page.png)
+![Constructor verify page with constructor arguments.](images/contract-verification/verify-with-args.png)
+
+### Verifying a proxy contract
+
+If your contract is behind a proxy, you can also verify the proxy with the implementation contract. You just need to check the "The deployed contract is behind a proxy" checkbox, and provide the address of the proxy contract.
+
+![Constructor verify page showing proxy address field.](images/contract-verification/verify-by-proxy.png)
+
+The plugin will first verify the implementation contract, and then verify the proxy contract. Proxies can only be verified on Etherscan and Blockscout.
+
+### Supported networks
+
+The plugin supports hundreds of EVM-compatible networks. Notable examples include:
+
+- Ethereum Mainnet and testnets (Sepolia, Holesky)
+- Arbitrum One, Arbitrum Nova, Arbitrum Sepolia
+- Base and Base Sepolia
+- BNB Smart Chain Mainnet and Testnet
+- Avalanche C-Chain and Fuji Testnet
+- Optimism and OP Sepolia
+- Polygon and Polygon Amoy
+- Berachain, Blast, Celo, and many more
+
+The full list of supported networks is available in the network dropdown inside the plugin.
+
+## Receipts tab
+
+Verification receipts are found on the receipts tab.
+
+![Contract verification receipts page with the Receipts bar highlighted.](images/contract-verification/receipts-page.png)
 
 You can hover over the status symbols to get more information about failed verifications.
 
-## Lookup page
+## Lookup tab
 
-The Lookup page is used to check if a contract is verified on the verification services, and to download its source code into the file editor.
+The Lookup tab is used to check if a contract is verified on the verification services, and to download its source code into the Remix file explorer.
 
-![Contract verification lookup page with the Lookup bar highlighted.](images/contract-verification/a-cv-lookup-page.png)
+![Contract verification lookup page with the Lookup bar highlighted.](images/contract-verification/lookup-tab.png)
 
-## Settings page
+## Settings tab
 
-In the settings page, you can configure custom API URLs for the verification services, and add your own API keys. For Etherscan, adding an API key is mandatory.
+In the settings tab, you can configure custom API URLs for the verification services, and add your own API keys. For Etherscan, adding an API key is mandatory.
 
-![Contract verification settings page with the Settings bar highlighted.](images/contract-verification/a-cv-settings-page.png)
+![Contract verification settings page with the Settings bar highlighted.](images/contract-verification/settings-tab.png)
 
 The settings are always stored per chain, meaning that if you change the settings for a chain, it will not affect other chains. However, the Contract Verification plugin uses the Etherscan v2 API, meaning the same API key will work for over 50 different chains.
 
@@ -55,18 +78,10 @@ The settings are always stored per chain, meaning that if you change the setting
 For the time being, you’ll still need to input your Etherscan v2 API key on each different chain, but at least it will be the same key for all of them.
 ```
 
-## Verifying with constructor arguments
+## Verifying with Deploy and Run
 
-When a contract has arguments in the constructor, a text box will show for inputting the same constructor inputs as the deployed contract.
+You can also verify your contracts during deployment on the Deploy and Run plugin by checking the "Verify Contract on Explorers" checkbox before clicking **Deploy**.
 
-![Constructor verify page with constructor arguments.](images/contract-verification/a-cv-verify-constructor-args.png)
+![Deploy and Run plugin with the Verify Contract on Explorers checkbox highlighted.](images/contract-verification/verify-on-deploy-and-run.png)
 
-## Verifying a proxy contract
-
-If your contract is behind a proxy, you can verify also the proxy with the implementation contract. You just need to check the "The deployed contract is behind a proxy" checkbox, and provide the address of the proxy contract.
-
-![Constructor verify page showing proxy address field.](images/contract-verification/a-cv-verify-proxy.png)
-
-The plugin will first verify the implementation contract, and then verify the proxy contract.
-
-Proxies can only be verified on Etherscan and Blockscout.
+When the checkbox is enabled, verification is automatically submitted to the configured verification services immediately after the contract is deployed. The verification uses the same service configuration set up in the Contract Verification plugin's [Settings tab](#settings-tab). Verification results can be found in the [Receipts tab](#receipts-tab) of the Contract Verification plugin.
