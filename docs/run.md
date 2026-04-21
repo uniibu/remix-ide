@@ -12,10 +12,10 @@ The Deploy & Run module is for sending transactions to the current **Environment
 The three main actions of the Deploy & Run module are:
 
 1. **Deploying** a contract
-2. **Accessing** an onchain contract
+2. **Loading** a deployed contract
 3. **Interacting** with the functions of a deployed contract
 
-This documentation page will cover **Deploying** and **Accessing**. Interacting will be covered in {doc}`Deploy & Run part 2 </udapp>`.
+This documentation page will cover **Deploying** and **Loading**. Interacting will be covered in {doc}`Deploy & Run part 2 </udapp>`.
 
 ![Deploy & Run plugin](images/deploy-and-run/a-deploy-run1.png)
 
@@ -100,17 +100,17 @@ The Remix VM supports multiple EVM forks letting you simulate different network 
 
 The **state** of the Remix VM chain is saved in the **.states folder** in the File Explorer. If you do not want the Remix VM state to be saved, uncheck **Save environment state** in the Settings panel.
 
-Saving the state means you can refresh the browser and not lose your work, the caveat being that browser storage is inherently unstable. Of course if you push to a remote repo, then you are not relying on the browser to save your work.
+Saving the state means you can refresh the browser and not lose your work, the caveat being that browser storage is inherently unstable. Pushing to a remote repository avoids relying on browser storage entirely.
 
 <!-- TODO: Add info about cloud storage after beta -->
 
-In collaborative workflows, sharing the state of the Remix VM is a great way to work out bugs. Just have your teammates load the **state.json** file into their instance of Remix.
+In collaborative workflows, you can share the VM state by having teammates load the **state.json** file into their Remix instance.
 
 ![The File Explorer showing the .states folder containing the state.json file.](images/deploy-and-run/a-deploy-run-state-file.png)
 
-### Browser Extensions
+### Browser Extension
 
-Browser extensions allow you to connect Remix to a wallet installed in your browser, such as **MetaMask** or **Phantom**. This is the standard way to deploy contracts to a live network or testnet using your own accounts.
+Browser extension wallets allow you to connect Remix to a wallet installed in your browser, such as **MetaMask** or **Phantom**. This is the standard way to deploy contracts to a live network or testnet using your own accounts.
 
 To use a browser extension:
 
@@ -135,26 +135,6 @@ To use WalletConnect:
 
 Transactions triggered in Remix will appear as signing requests on your mobile device.
 
-### VM Forks
-
-The Remix VM can fork a live network, loading its state into the in-browser sandbox. This lets you test contracts against real on-chain data (such as existing token balances, deployed protocols, or mainnet contract state) without spending real ETH.
-
-The following fork options are available:
-
-- **Mainnet fork**: Forks the Ethereum mainnet at the latest block.
-- **Sepolia fork**: Forks the Sepolia testnet, useful for testing against testnet deployments.
-- **Custom fork**: Forks any EVM-compatible chain at a block number of your choice. See [Custom Fork](#custom-fork) below.
-
-Forked environments come pre-loaded with the same 10 accounts and 100 ETH per account as the standard Remix VM, but all existing on-chain state is accessible.
-
-#### Custom Fork
-
-The Custom fork option allows you to specify a chain’s RPC server, a block number, and an EVM version.
-
-![The Custom Fork modal showing fields for Node URL, block number, and EVM version.](images/deploy-and-run/custom-fork.png)
-
-You can get the **Node URL** from chainlist.org. If the chain does not load, you may need to choose a different RPC server. You will also need to choose an EVM version appropriate to the block number. If you choose a very low block number, post-Merge EVM versions won’t work since they didn’t exist at that point in the chain’s history.
-
 ### Development Environments
 
 Development environments connect Remix to locally running nodes or L2 networks, making them suitable for advanced testing and integration workflows.
@@ -169,20 +149,7 @@ Development environments connect Remix to locally running nodes or L2 networks, 
 When using a local provider (Hardhat or Foundry), make sure the node is running before selecting the environment in Remix.
 ```
 
-## Forking chains in Remix
-
-Forking a chain will bring that chain to the Remix VM. Once it is forked, you'll have access to the 10 accounts loaded with 100 ETH.
-
-You can also fork the Remix VM in its current state. Click the version control icon to the right of the Environment title to create a fork and then to name it. Switching between forks is done in the Environment dropdown menu. You can also reset the state of the VM by clicking the refresh icon to the right of the version control icon. Forking the VM lets you snapshot a working state, try changes, and return to the original if needed.
-
-![Fork VM state modal.](images/deploy-and-run/fork-vm-state.png)
-
-If **Save environment state** (Settings → General) is enabled, the Remix VM
-state (including forked VM states) is saved in the `.states` folder so you can
-refresh and resume later. Browser storage can still be cleared or corrupted, so
-back up important work with Git.
-
-## More about External HTTP Provider
+### More About External HTTP Provider
 
 If you are using Geth and https://remix.ethereum.org, please use the following Geth command to allow requests from Remix:
 
@@ -214,6 +181,44 @@ The Web3 Provider Endpoint for a local node is **http://localhost:8545**
 Avoid using a wildcard with the Geth flag `--http.corsdomain`. Using `--http.corsdomain *` allows any origin to access your node. Only use this when running a **test chain** with **test accounts**. For real accounts or mainnet, always specify the exact URL, e.g. `--http.corsdomain 'https://remix.ethereum.org'`.
 ```
 
+## Forking Chains in Remix
+
+Forking a chain will bring that chain to the Remix VM. Once it is forked, you'll have access to the 10 accounts loaded with 100 ETH.
+
+### Remix VM Forks
+
+You can also fork the Remix VM in its current state. To fork the Remix VM, click the version control icon to the right of the Environment title to create a fork and then to name it.
+
+![Fork VM state modal.](images/deploy-and-run/fork-vm-state.png)
+
+You can switch between existing Remix VM forks by selecting "Forked State" from the Environment dropdown menu.
+
+![Forked state option.](images/deploy-and-run/forked-state.png)
+
+```{note}
+The "Forked State" option only appears in the dropdown when there is an existing Remix VM fork.
+```
+
+### Live Network Forks
+
+The Remix VM can fork a live network, loading its state into the in-browser sandbox. This lets you test contracts against real on-chain data (such as existing token balances, deployed protocols, or mainnet contract state) without spending real ETH.
+
+The following fork options are available:
+
+- **Mainnet fork**: Forks the Ethereum mainnet at the latest block.
+- **Sepolia fork**: Forks the Sepolia testnet, useful for testing against testnet deployments.
+- **Custom fork**: Forks any EVM-compatible chain at a block number of your choice. See [Custom Fork](#forking-a-custom-chain) below.
+
+#### Forking a Custom Chain
+
+The Custom fork option allows you to specify a chain's RPC server, a block number, and an EVM version.
+
+![The Custom Fork modal showing fields for Node URL, block number, and EVM version.](images/deploy-and-run/custom-fork.png)
+
+You can get the **Node URL** from [chainlist.org](https://chainlist.org). If the chain does not load, you may need to choose a different RPC server. You will also need to choose an EVM version appropriate to the block number. If you choose a very low block number, post-Merge EVM versions won't work since they didn't exist at that point in the chain's history.
+
+You can reset the state of the VM by clicking the refresh icon to the right of the version control icon. Forking the VM lets you snapshot a working state, try changes, and return to the original if needed.
+
 <!-- ## Pending Instances
 
 Validating a transaction may take several seconds. During this time, the GUI
@@ -223,7 +228,7 @@ pending transactions updates, and the transaction is added to the log
 
 ## Using the Recorder
 
-The Recorder is a tool used to save a bunch of transactions in a JSON file and
+The Recorder is a tool used to save a sequence of transactions in a JSON file and
 re-run them later, either in the same environment or in another.
 
 Saving to the JSON file (by default it's called scenario.json) allows one to easily check the transaction list, tweak input parameters, change linked libraries, etc.
@@ -233,7 +238,7 @@ There are many use cases for the Recorder.
 For instance:
 
 - After having coded and tested contracts in a constrained
-  environment, like the Remix VM, you could then switch the environment and redeploy the contract to a more realistic environment, like a public testnet or to a Geth node. By using the generated **scenario.json** file, you will be using all the same settings that you used in the Remix VM. And, this means that you won't need to click the interface 100 times or whatever to get the state that you achieved originally. Thus the Recorder can be a tool to protect your sanity.
+  environment, like the Remix VM, you could then switch the environment and redeploy the contract to a more realistic environment, like a public testnet or to a Geth node. By using the generated **scenario.json** file, you will be using all the same settings that you used in the Remix VM. The Recorder eliminates the need to manually recreate that state step by step.
 
   You can also change the settings in the scenario.json file to customize the playback.
 
@@ -249,7 +254,7 @@ When checked, the option `Run transactions using the last compilation result` al
 
 ### scenario.json
 
-To create this file in the Recorder, you first need to have run some transactions. In the image above, it shows a `0` next to **Transactions Recorded**. So, this isn't the right moment to save transactions because, well, because there aren't any. But, each time you make a transaction, that number will increment. So, when you are ready with some transactions, click the floppy disk icon and the scenario.json file will be created.
+To create this file in the Recorder, you first need to have run some transactions. The **Transactions Recorded** counter starts at `0` and increments with each transaction. Once you have recorded the transactions you need, click the floppy disk icon to save the scenario.json file.
 
 The example below shows a `scenario.json` file containing three transactions, all sent from `account{0}`:
 
@@ -257,18 +262,18 @@ The example below shows a `scenario.json` file containing three transactions, al
 2. **Deploy `test`**: deploys a contract with constructor parameter `11`. It depends on `testLib`, so the `linkReferences` property maps the library name to the address of the previously created instance using the timestamp ID `created{1512830014773}`.
 3. **Call `set` on `test`**: calls the `set` function on the deployed `test` contract (referenced as `created{1512830015080}`) with parameters `1` and `0xca35b7d915458ef540ade6068dfe2f44e8fa733c`.
 
-```
+```json
 {
-"accounts": {
+  "accounts": {
     "account{0}": "0xca35b7d915458ef540ade6068dfe2f44e8fa733c"
-},
-"linkReferences": {
+  },
+  "linkReferences": {
     "testLib": "created{1512830014773}"
-},
-"transactions": [
+  },
+  "transactions": [
     {
-    "timestamp": 1512830014773,
-    "record": {
+      "timestamp": 1512830014773,
+      "record": {
         "value": "0",
         "parameters": [],
         "abi": "0xbc36789e7a1e281436464229828f817d6612f7b477d66591ff96a9e064bcc98a",
@@ -277,139 +282,134 @@ The example below shows a `scenario.json` file containing three transactions, al
         "linkReferences": {},
         "type": "constructor",
         "from": "account{0}"
-    }
+      }
     },
     {
-    "timestamp": 1512830015080,
-    "record": {
+      "timestamp": 1512830015080,
+      "record": {
         "value": "100",
-        "parameters": [
-        11
-        ],
+        "parameters": [11],
         "abi": "0xc41589e7559804ea4a2080dad19d876a024ccb05117835447d72ce08c1d020ec",
         "contractName": "test",
         "bytecode": "60606040526040516020806102b183398101604052808051906020019091905050806000819055505061027a806100376000396000f300606060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632f30c6f61461006757806338cc48311461009e57806362738998146100f357806387cc10e11461011c575b600080fd5b61009c600480803590602001909190803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610145565b005b34156100a957600080fd5b6100b1610191565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156100fe57600080fd5b6101066101bb565b6040518082815260200191505060405180910390f35b341561012757600080fd5b61012f6101c4565b6040518082815260200191505060405180910390f35b8160008190555080600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505050565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008054905090565b600073__browser/ballot.sol:testLib____________636d4ce63c6000604051602001526040518163ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040160206040518083038186803b151561022e57600080fd5b6102c65a03f4151561023f57600080fd5b505050604051805190509050905600a165627a7a72305820e0b2510bb2890a0334bfe5613d96db3e72442e63b514cdeaee8fc2c6bbd19d3a0029",
         "linkReferences": {
-        "browser/ballot.sol": {
+          "browser/ballot.sol": {
             "testLib": [
-            {
+              {
                 "length": 20,
                 "start": 511
-            }
+              }
             ]
-        }
+          }
         },
         "name": "",
         "type": "constructor",
         "from": "account{0}"
-    }
+      }
     },
     {
-    "timestamp": 1512830034180,
-    "record": {
+      "timestamp": 1512830034180,
+      "record": {
         "value": "1000000000000000000",
-        "parameters": [
-        1,
-        "0xca35b7d915458ef540ade6068dfe2f44e8fa733c"
-        ],
+        "parameters": [1, "0xca35b7d915458ef540ade6068dfe2f44e8fa733c"],
         "to": "created{1512830015080}",
         "abi": "0xc41589e7559804ea4a2080dad19d876a024ccb05117835447d72ce08c1d020ec",
         "name": "set",
         "type": "function",
         "from": "account{0}"
+      }
     }
-    }
-],
-"abis": {
+  ],
+  "abis": {
     "0xbc36789e7a1e281436464229828f817d6612f7b477d66591ff96a9e064bcc98a": [
-    {
+      {
         "constant": true,
         "inputs": [],
         "name": "get",
         "outputs": [
-        {
+          {
             "name": "",
             "type": "uint256"
-        }
+          }
         ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
-    }
+      }
     ],
     "0xc41589e7559804ea4a2080dad19d876a024ccb05117835447d72ce08c1d020ec": [
-    {
+      {
         "constant": true,
         "inputs": [],
         "name": "getInt",
         "outputs": [
-        {
+          {
             "name": "",
             "type": "uint256"
-        }
+          }
         ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
-    },
-    {
+      },
+      {
         "constant": true,
         "inputs": [],
         "name": "getFromLib",
         "outputs": [
-        {
+          {
             "name": "",
             "type": "uint256"
-        }
+          }
         ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
-    },
-    {
+      },
+      {
         "constant": true,
         "inputs": [],
         "name": "getAddress",
         "outputs": [
-        {
+          {
             "name": "",
             "type": "address"
-        }
+          }
         ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
-    },
-    {
+      },
+      {
         "constant": false,
         "inputs": [
-        {
+          {
             "name": "_t",
             "type": "uint256"
-        },
-        {
+          },
+          {
             "name": "_add",
             "type": "address"
-        }
+          }
         ],
         "name": "set",
         "outputs": [],
         "payable": true,
         "stateMutability": "payable",
         "type": "function"
-    },
-    {
+      },
+      {
         "inputs": [
-        {
+          {
             "name": "_r",
             "type": "uint256"
-        }
+          }
         ],
         "payable": true,
         "stateMutability": "payable",
         "type": "constructor"
-    }
+      }
     ]
-}
+  }
 }
 ```
