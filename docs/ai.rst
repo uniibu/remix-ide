@@ -10,16 +10,19 @@ Remix has its own AI tool named **RemixAI** and a sub-project called
 
 When you load Remix, the **RemixAI Assistant** appears in the Right Side Panel.
 
-.. image:: images/ai/remixai-right-panel.png
+.. image:: images/ai/remix-ai-panel.png
    :alt: RemixAI Assistant Right Side Panel
 
 .. tip::
    You can minimize the RemixAI Assistant by clicking the minimize icon at the
    top left of the Right Side Panel.
 
-.. image:: images/ai/minimize-sidebar.png
-   :alt: Minimize AI side bar
-
+.. video:: images/ai/maximize-ai.mp4
+  :autoplay:
+  :playsinline:
+  :muted:
+  :loop:
+  :width: 100%
 
 RemixAI is also integrated into other parts of the tool including:
 
@@ -27,6 +30,8 @@ RemixAI is also integrated into other parts of the tool including:
 - The **Explain compiler error** button when an error is thrown in the Solidity Compiler.
 - **Right-click menu options** in the Editor.
 - **Code requests in the Editor** by prepending an AI code request in a file with a double slash (``//``).
+
+The RemixAI Assistant retains your conversation history within a session, so you can refer back to earlier responses or continue a previous request.
 
 
 Choosing an LLM for code explanations
@@ -38,17 +43,11 @@ and in the AI Assistant.
 The default LLM is **MistralAI**. Click the MistralAI button and a modal will pop up
 where you can select **Anthropic**, **OpenAI**, or **MistralAI**.
 
-.. image:: images/ai/llm-dropdown.png
+.. image:: images/ai/available-models.png
    :alt: RemixAI LLM dropdown menu
 
 The RemixAI Assistant responds in the language in which it is asked and can answer
 questions about Solidity, JavaScript/TypeScript, Vyper, and other programming languages.
-
-.. note::
-
-   You can click the **Explain Contract** button at the bottom of the Editor when a
-   ``.sol`` file is active.
-
 
 Using a local LLM for privacy
 -----------------------------
@@ -66,7 +65,7 @@ run large language models (LLMs) directly on your own machine.
 The Ollama LLMs supported by Remix include:
 
 - ``codestral:latest``
-- ``quen3-coder:latest``
+- ``qwen3-coder:latest``
 - ``gpt-oss:latest``
 - ``deepseek-coder-v2:latest`` (recommended for code completion)
 
@@ -89,7 +88,6 @@ Before using Ollama with Remix, ensure the following requirements are met:
 
 - **Ollama is installed** on your system. Visit the
   `Ollama website <https://ollama.com/>`_ to download and install it.
-- **An Ollama account** is set up.
 - **At least one supported or recommended model** is installed locally.
 
 After completing the setup, start the Ollama server by running:
@@ -106,12 +104,15 @@ By default, the Ollama service listens on:
 
 You can confirm that Ollama is running by visiting the URL above. If it is running, you should see the message below.
 
-.. image:: /images/ai/ollama-running.png
+.. image:: images/ai/ollama-running.png
    :alt: Ollama is running text in browser.
 
 Next, to allow the Remix IDE to communicate with your local Ollama instance, you must
 configure **CORS**. See `how to setup CORS for Ollama <https://objectgraph.com/blog/ollama-cors/>`_ for instructions specific to your operating system.
-Once configured, restart the Ollama service and your terminal instance to apply the changes.
+
+
+.. important::
+   Once configured, restart the Ollama service and your terminal instance to apply the changes.
 
 
 You can check if Remix is on your Ollama allowlist by running the command below:
@@ -139,12 +140,12 @@ If "remix.ethereum.org" is configured properly, you will get the message below:
    Date: Sun, 11 Jan 2026 23:52:32 GMT
 
 
-.. tip:: 
+.. tip::
    If you run into any issues check out our `Ollama troubleshooting guide <https://github.com/remix-project-org/remix-project/blob/master/OLLAMA_SETUP.md#troubleshooting/>`_.
 
 After the setup, select Ollama as the model on RemixAI and it will automatically detect the supported models you have on your device. You can select your preferred model and use it for code completion and assistance.
 
-.. image:: /images/ai/ollama-remix.png
+.. image:: images/ai/ollama-remix.png
    :alt: RemixAI assistant with Ollama as the model
 
 Running Ollama in the cloud with Remix
@@ -163,7 +164,7 @@ Follow the steps below to configure a remote Ollama instance in Remix:
 2. Navigate to the **RemixAI Assistant** section.
 3. Under **Ollama URL Configuration**, enter the URL of the machine running Ollama.
 
-.. image:: images/ai/configure-ollama-remote.png
+.. image:: images/ai/ollama-cloud.png
    :alt: Remix settings showing the Ollama config
 
 .. TODO: Uncomment after PR that implements video is merged
@@ -175,17 +176,6 @@ Follow the steps below to configure a remote Ollama instance in Remix:
 ..   :loop:
 ..   :width: 100%
 
-Adding context to the LLM
--------------------------
-
-Clicking the ``@Add context`` button opens a modal where you can define the context
-for your request.
-
-.. image:: images/ai/remixai-add-context.png
-   :alt: RemixAI add context flow
-
-You can also set the context to the current Workspace while typing by starting
-a request with ``/w``.
 
 RemixAI accepts audio input
 ---------------------------
@@ -199,10 +189,11 @@ To use audio input:
 3. Speak your question or instruction clearly.
 4. RemixAI will transcribe your speech and respond as if the input were typed.
 
-.. image:: images/ai/remix-ai-audio.png
+.. image:: images/ai/ai-with-audio.png
    :alt: RemixAI audio button
 
 Audio input is especially useful for:
+
 - Quickly asking questions while reviewing code
 - Explaining issues in natural language
 - Hands-free interaction during development
@@ -218,7 +209,7 @@ Model Context Protocol (MCP)
 
 Remix supports **Model Context Protocol (MCP)** servers, which give the RemixAI access to external tools and libraries during agentic workflows.
 
-You can manage the MCP servers available to you managed in **Settings > RemixAI Assistant**. Here you can turn the available servers on and off, depending on your preferences.
+You can manage the MCP servers available to you in **Settings > RemixAI Assistant**. Here you can turn the available servers on and off, depending on your preferences.
 
 .. image:: images/ai/connected-mcps.png
    :alt: Remix MCP Connected Services panel
@@ -299,10 +290,9 @@ suggestions. This feature is known as **code completion**.
 The suggestions take into account what has already been written in the file.
 
 The toggle to enable code completion is located at the bottom-left of the Main Panel
-when a file is active. Once enabled, code completion uses the **MistralAI** LLM.
-There is no LLM selection for code completion.
+when a file is active. Once enabled, code completion uses the **MistralAI** LLM by default. If Ollama is configured as the active model, code completion will use the selected Ollama model instead.
 
-.. image:: images/ai/a-ai-switch.png
+.. image:: images/ai/copilot-switch.png
    :alt: Remix AI Copilot button
 
 .. note::
@@ -330,9 +320,6 @@ If no code is selected, RemixAI considers the code surrounding the cursor.
 Editor: Code Completion
 -----------------------
 
-With the RemixAI Copilot enabled, typing a space or creating a new line triggers
-a completion proposal.
-
 .. image:: images/ai/a-ai-completion-proposal.png
    :alt: RemixAI completion proposal
 
@@ -341,35 +328,16 @@ Press ``Tab`` to accept the suggestion.
 .. image:: images/ai/a-ai-completion-accepted.png
    :alt: RemixAI accepted completion
 
-
-Editor: Ask RemixAI with //
+Ask RemixAI with //
 ---------------------------
 
-When the AI Copilot is enabled, you can ask coding questions directly in the Editor
-by starting a comment with ``//``.
-
-Example:
+With the AI Copilot enabled, start a comment with ``//`` to send a code request
+directly from the Editor. Example:
 
 ::
 
    // write a function that returns an array with 3 elements from the function's parameters
 
-
-Editor: Edit Files with RemixAI
--------------------------------
-
-You can edit files directly using the RemixAI Assistant or generate new contracts.
-To do this, switch the Assistant from **Ask** to **Edit** in the Right Side Panel.
-
-.. image:: images/ai/edit-function.png
-   :alt: Switch to Edit button
-
-Then provide instructions describing what you want to edit or generate.
-
-.. tip::
-
-   Provide the file you want to edit or generate as context (see
-   :ref:`Adding Context to the LLM`) to get the best results.
 
 
 Compilers: Explain Error
@@ -377,6 +345,9 @@ Compilers: Explain Error
 
 In the error cards of both the Solidity Compiler and the Vyper Compiler, there is
 an **Ask RemixAI** button that helps explain compiler errors.
+
+Click the button to send the error message to RemixAI. The Assistant will explain
+the cause of the error and suggest how to fix it.
 
 .. image:: images/ai/a-ai-solcomp1.png
    :alt: Compiler Explain Error
