@@ -9,7 +9,7 @@ Welcome to Remix's documentation!
 It requires no setup, fosters a fast development cycle, and has a rich set of plugins with intuitive GUIs.  
 The IDE comes in two flavors (web app or desktop app).
 
-**Remix Desktop**, see: `Download page <htttps://github.com/remix-project-org/remix-desktop/releases>`__
+**Remix Desktop**, see: `Download page <https://github.com/remix-project-org/remix-desktop/releases>`__
 
 **Remix Online IDE**, see: `https://remix.ethereum.org <https://remix.ethereum.org>`__
 
@@ -25,7 +25,7 @@ Remix IDE is part of the `Remix Project <https://github.com/remix-project-org/re
 Remix IDE is located at `remix.ethereum.org <https://remix.ethereum.org>`__ and more information can be found in these docs. The IDE's repo is at `GitHub <https://github.com/remix-project-org/remix-project>`__.
 
 This set of documents covers instructions on how to use Remix.  
-Additional information can be found in our `blog <https://ethereumremix.substack.com>` (formerly on: `medium <https://medium.com/remix-ide>`__) and in our tutorial tool, `LearnEth <https://remix-learneth-plugin.readthedocs.io/en/latest/index.html>`__ located inside of Remix IDE.
+Additional information can be found on our `Substack blog <https://ethereumremix.substack.com>`__ (formerly on: `medium <https://medium.com/remix-ide>`__) and in our tutorial tool, `LearnEth <https://remix-learneth-plugin.readthedocs.io/en/latest/index.html>`__ located inside of Remix IDE.
 
 Useful Links
 ------------
